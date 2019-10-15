@@ -286,7 +286,7 @@ Private Sub SetText()
                                App.Revision & vbCrLf & _
                   "" & vbCrLf & _
                   "This program was made by" & vbCrLf & _
-                  "Eric O'Sullivan." & vbCrLf & _
+                  "DiskJunky." & vbCrLf & _
                   "" & vbCrLf & _
                   "Copyright " & Year(Date) & vbCrLf & _
                   "All rights reserved" & vbCrLf & _

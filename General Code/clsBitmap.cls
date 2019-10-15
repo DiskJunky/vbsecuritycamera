@@ -55,7 +55,7 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 '                        ---------------------
 '
 'Thank you,
-'Eric
+'DiskJunky
 '==========================================================================
 
 'require variable declaration
