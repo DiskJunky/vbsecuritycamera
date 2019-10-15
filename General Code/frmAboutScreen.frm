@@ -94,7 +94,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '=================================================
-'AUTHOR :   Eric O'Sullivan
+'AUTHOR :   DiskJunky
 ' -----------------------------------------------
 'DATE :     17 November 2001
 ' -----------------------------------------------
@@ -122,7 +122,7 @@ Option Explicit
 Private mstrAllText As String   'the scrolling text displayed
 Private mblnStart   As Boolean  'is the text starting to scroll from the bottom
 
-Private Sub cmdOk_Click()
+Private Sub cmdOK_Click()
     'exit screen
     Unload Me
 End Sub
@@ -256,11 +256,11 @@ Private Sub timText_Timer()
     End If
     
     'copy the result to the screen
-    Call udtBmp.MergeBitmaps(udtSurphase.hdc, _
-                             udtFore.hdc, _
-                             udtMask.hdc, _
+    Call udtBmp.MergeBitmaps(udtSurphase.hDC, _
+                             udtFore.hDC, _
+                             udtMask.hDC, _
                              intMaskY:=Abs(intScroll - picText.ScaleHeight))
-    Call udtBmp.Paint(Me.hdc)
+    Call udtBmp.Paint(Me.hDC)
     
     'wait X ticks minus the time it took to draw the frame
     With udtSurphase

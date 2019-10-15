@@ -15,7 +15,7 @@ Attribute VB_Description = "Creates and uses a bitmap effiently and also provide
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 '==========================================================================
-'   AUTHOR   :  Eric O'Sullivan
+'   AUTHOR   :  DiskJunky
 ' ------------------------------------------------------------------------
 '   DATE     :  11 November 2001
 ' ------------------------------------------------------------------------
@@ -94,8 +94,8 @@ Private Declare Sub AtlHiMetricToPixel _
 Private Declare Function BitBlt _
        Lib "gdi32" _
             (ByVal hDestDC As Long, _
-             ByVal X As Long, _
-             ByVal Y As Long, _
+             ByVal x As Long, _
+             ByVal y As Long, _
              ByVal nWidth As Long, _
              ByVal nHeight As Long, _
              ByVal hSrcDC As Long, _
@@ -128,7 +128,7 @@ Private Declare Function CreateColorSpace _
 'the will create a bitmap compatable with the passed hDc
 Private Declare Function CreateCompatibleBitmap _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
             ByVal nWidth As Long, _
             ByVal nHeight As Long) _
             As Long
@@ -137,7 +137,7 @@ Private Declare Function CreateCompatibleBitmap _
 'windows handle
 Private Declare Function CreateCompatibleDC _
        Lib "gdi32" _
-            (ByVal hdc As Long) _
+            (ByVal hDC As Long) _
              As Long
 
 'creates an elliptical region in a hDc
@@ -207,7 +207,7 @@ Private Declare Function CreateSolidBrush _
 'removes a device context from memory
 Private Declare Function DeleteDC _
        Lib "gdi32" _
-            (ByVal hdc As Long) _
+            (ByVal hDC As Long) _
              As Long
 
 'removes an object such as a brush or bitmap from memory
@@ -219,7 +219,7 @@ Private Declare Function DeleteObject _
 'this draws the animated minimize/maximize rectangeles
 Private Declare Function DrawAnimatedRects _
        Lib "user32" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              ByVal idAni As Long, _
              lprcFrom As Rect, _
              lprcTo As Rect) _
@@ -228,7 +228,7 @@ Private Declare Function DrawAnimatedRects _
 'this will draw a 2D or 3D edge on the specified DC
 Private Declare Function DrawEdge _
         Lib "user32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              qrc As Rect, _
              ByVal edge As Long, _
              ByVal grfFlags As Long) _
@@ -237,7 +237,7 @@ Private Declare Function DrawEdge _
 'This will draw a frame border in the specified co-ordinates
 Private Declare Function DrawFrameControl _
         Lib "user32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lpRect As Rect, _
              ByVal un1 As Long, _
              ByVal un2 As Long) _
@@ -246,7 +246,7 @@ Private Declare Function DrawFrameControl _
 'this draws an icon onto a surphase (eg, a bitmap)
 Private Declare Function DrawIconEx _
        Lib "user32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal xLeft As Long, _
              ByVal yTop As Long, _
              ByVal hIcon As Long, _
@@ -261,7 +261,7 @@ Private Declare Function DrawIconEx _
 Private Declare Function DrawText _
        Lib "user32" _
        Alias "DrawTextA" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal lpStr As String, _
              ByVal nCount As Long, _
              lpRect As Rect, _
@@ -271,7 +271,7 @@ Private Declare Function DrawText _
 'this draws an ellipse onto the bitmap
 Private Declare Function Ellipse _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              X1 As Integer, _
              Y1 As Integer, _
              X2 As Integer, _
@@ -300,7 +300,7 @@ Private Declare Function ExtCreatePen _
 'select a clipping region to the specified DC
 Private Declare Function ExtSelectClipRgn _
         Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal hRgn As Long, _
              ByVal fnMode As Long) _
              As Long
@@ -309,7 +309,7 @@ Private Declare Function ExtSelectClipRgn _
 'to the hDc
 Private Declare Function FillRect _
        Lib "user32" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              Fill As Rect, _
              hBrush As Long) _
              As Integer
@@ -317,7 +317,7 @@ Private Declare Function FillRect _
 'this will fill a region with the brush specified
 Private Declare Function FillRgn _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal hRgn As Long, _
              hBrush As Long) _
              As Boolean
@@ -335,7 +335,7 @@ Private Declare Function FindWindow _
 Private Declare Function FlashWindowApi _
         Lib "user32" _
         Alias "FlashWindow" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              ByVal bInvert As Long) _
              As Long
 
@@ -371,7 +371,7 @@ Private Declare Function GetBitmapDimensionEx _
 'the specified device context
 Private Declare Function GetBrushOrgEx _
         Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lpPoint As PointAPI) _
              As Long
 
@@ -380,7 +380,7 @@ Private Declare Function GetBrushOrgEx _
 Private Declare Function GetClassName _
        Lib "user32" _
        Alias "GetClassNameA" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              ByVal lpClassName As String, _
              ByVal nMaxCount As Long) _
              As Long
@@ -389,7 +389,7 @@ Private Declare Function GetClassName _
 'area of the client
 Private Declare Function GetClientRect _
        Lib "user32" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              lpRect As Rect) _
              As Long
 
@@ -409,7 +409,7 @@ Private Declare Function GetCursorPos _
 'gets a hDc of the specified window
 Private Declare Function GetDC _
        Lib "user32" _
-            (ByVal hWnd As Long) _
+            (ByVal hwnd As Long) _
             As Long
 
 'gets the entire screen area
@@ -421,7 +421,7 @@ Private Declare Function GetDesktopWindow _
 'this will get the current devices' capabilities
 Private Declare Function GetDeviceCaps _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal nIndex As Long) _
              As Long
 
@@ -440,7 +440,7 @@ Private Declare Function GetLastError _
 'get the handle of the menu bar on a window
 Private Declare Function GetMenu _
         Lib "user32" _
-            (ByVal hWnd As Long) _
+            (ByVal hwnd As Long) _
              As Long
 
 'Get the sub menu ID number. This is used to
@@ -464,15 +464,15 @@ Private Declare Function GetObjectAPI _
 'get the colour of the specified pixel
 Private Declare Function GetPixel _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
-             ByVal X As Long, _
-             ByVal Y As Long) _
+            (ByVal hDC As Long, _
+             ByVal x As Long, _
+             ByVal y As Long) _
              As Long
 
 'this will get the stretch mode of the bitmap
 Private Declare Function GetStretchBltMode _
         Lib "gdi32" _
-            (ByVal hdc As Long) _
+            (ByVal hDC As Long) _
              As Long
 
 'this will get the handle of a specified
@@ -493,7 +493,7 @@ Private Declare Function GetSysColor _
 'gets the palette information for the system
 Private Declare Function GetSystemPaletteEntries _
         Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal wStartIndex As Long, _
              ByVal wNumEntries As Long, _
              lpPaletteEntries As PALETTEENTRY) _
@@ -504,7 +504,7 @@ Private Declare Function GetSystemPaletteEntries _
 Private Declare Function GetTextExtentPoint _
         Lib "gdi32" _
         Alias "GetTextExtentPoint32A" _
-        (ByVal hdc As Long, ByVal lpsz As String, _
+        (ByVal hDC As Long, ByVal lpsz As String, _
          ByVal cbString As Long, _
          lpSize As SizeType) _
          As Long
@@ -514,7 +514,7 @@ Private Declare Function GetTextExtentPoint _
 Private Declare Function GetTextMetrics _
        Lib "gdi32" _
        Alias "GetTextMetricsA" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lpMetrics As TEXTMETRIC) _
              As Long
 
@@ -537,7 +537,7 @@ Private Declare Function GetVersionEx _
 'specified relationship to the specified window.
 Private Declare Function GetWindow _
        Lib "user32" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              ByVal wCmd As Long) _
              As Long
 
@@ -545,13 +545,13 @@ Private Declare Function GetWindow _
 'including title bar, borders etc
 Private Declare Function GetWindowDC _
         Lib "user32" _
-            (ByVal hWnd As Long) _
+            (ByVal hwnd As Long) _
              As Long
 
 'gets the area the specified window takes up
 Private Declare Function GetWindowRect _
        Lib "user32" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              lpRect As Rect) _
              As Long
 
@@ -559,8 +559,8 @@ Private Declare Function GetWindowRect _
 Private Declare Function InflateRect _
        Lib "user32" _
             (lpRect As Rect, _
-             ByVal X As Long, _
-             ByVal Y As Long) _
+             ByVal x As Long, _
+             ByVal y As Long) _
              As Long
 
 'gets any intersection of two rectangles
@@ -575,7 +575,7 @@ Private Declare Function IntersectRect _
 'region
 Private Declare Function InvertRect _
         Lib "user32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lpRect As Rect) _
              As Long
 
@@ -591,7 +591,7 @@ Private Declare Function IsRectEmptyApi _
 'specified co-ordinates
 Private Declare Function LineTo _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              XEnd As Integer, _
              YEnd As Integer) _
              As Boolean
@@ -646,9 +646,9 @@ Private Declare Function ModifyMenu _
 'point
 Private Declare Function MoveToEx _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
-             ByVal X As Integer, _
-             ByVal Y As Integer, _
+            (ByVal hDC As Long, _
+             ByVal x As Integer, _
+             ByVal y As Integer, _
              ByRef lpPoint As PointAPI) _
              As Boolean
 
@@ -667,8 +667,8 @@ Private Declare Function MulDiv _
 Private Declare Function OffsetRect _
        Lib "user32" _
             (lpRect As Rect, _
-             ByVal X As Long, _
-             ByVal Y As Long) _
+             ByVal x As Long, _
+             ByVal y As Long) _
              As Long
 
 'creates a new picture object accoring to a PictDesc structure
@@ -684,16 +684,16 @@ Private Declare Function OleCreatePictureIndirect _
 'specified DC
 Private Declare Function PaintDesktop _
         Lib "user32" _
-            (ByVal hdc As Long) _
+            (ByVal hDC As Long) _
              As Long
 
 'Pattern Blitter. Used to draw a pattern onto
 'a device context
 Private Declare Function PatBlt _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
-             ByVal X As Long, _
-             ByVal Y As Long, _
+            (ByVal hDC As Long, _
+             ByVal x As Long, _
+             ByVal y As Long, _
              ByVal nWidth As Long, _
              ByVal nHeight As Long, _
              ByVal dwRop As Long) _
@@ -703,7 +703,7 @@ Private Declare Function PatBlt _
 'useing an array.
 Private Declare Function Polygon _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lpPoint As PointAPI, _
              ByVal nCount As Long) _
              As Long
@@ -712,7 +712,7 @@ Private Declare Function Polygon _
 'points
 Private Declare Function Polyline _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lpPoint As PointAPI, _
              ByVal nCount As Long) _
              As Long
@@ -721,7 +721,7 @@ Private Declare Function Polyline _
 'the current position on the device context.
 Private Declare Function PolylineTo _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lppt As PointAPI, _
              ByVal cCount As Long) _
              As Long
@@ -729,14 +729,14 @@ Private Declare Function PolylineTo _
 'maps the selected palette to the system palette
 Private Declare Function RealizePalette _
         Lib "gdi32" _
-            (ByVal hdc As Long) _
+            (ByVal hDC As Long) _
              As Long
 
 'This draws a rectangle onto the device
 'context
 Private Declare Function Rectangle _
        Lib "gdi32" _
-            (ByVal hWnd As Long, _
+            (ByVal hwnd As Long, _
              X1 As Integer, _
              Y1 As Integer, _
              X2 As Integer, _
@@ -747,15 +747,15 @@ Private Declare Function Rectangle _
 'memory. Not to be confused with DeleteDC
 Private Declare Function ReleaseDC _
        Lib "user32" _
-            (ByVal hWnd As Long, _
-             ByVal hdc As Long) _
+            (ByVal hwnd As Long, _
+             ByVal hDC As Long) _
              As Long
 
 'this will draw a round-cornered rectangle
 'onto the specified device context
 Private Declare Function RoundRect _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal Left As Long, _
              ByVal Top As Long, _
              ByVal Right As Long, _
@@ -769,14 +769,14 @@ Private Declare Function RoundRect _
 Private Declare Sub RtlMoveMemory _
         Lib "kernel32.dll" _
             (Destination As Any, _
-             Source As Any, _
-             ByVal Length As Long)
+             source As Any, _
+             ByVal length As Long)
 
 'this will select a region for drawing to the specified
 'device context
 Private Declare Function SelectClipRgn _
         Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal hRgn As Long) _
              As Long
 
@@ -784,14 +784,14 @@ Private Declare Function SelectClipRgn _
 'a window or device context
 Private Declare Function SelectObject _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal hObject As Long) _
              As Long
 
 'selects the palette to the device context
 Private Declare Function SelectPalette _
         Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal hPalette As Long, _
              ByVal bForceBackground As Long) _
              As Long
@@ -808,7 +808,7 @@ Private Declare Function SetBitmapBits _
 'This sets the background colour on a bitmap
 Private Declare Function SetBkColor _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal crColor As Long) _
              As Long
 
@@ -816,7 +816,7 @@ Private Declare Function SetBkColor _
 '(eg, transparent, solid etc)
 Private Declare Function SetBkMode _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal nBkMode As Long) _
              As Long
 
@@ -825,7 +825,7 @@ Private Declare Function SetBkMode _
 'selects into the specified device context.
 Private Declare Function SetBrushOrgEx _
         Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal nXOrg As Integer, _
              ByVal nYOrg As Integer, _
              lppt As PointAPI) _
@@ -837,28 +837,28 @@ Private Declare Function SetBrushOrgEx _
 'when HALFTONE mode is set.
 Private Declare Function SetColorAdjustment _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              lpca As COLORADJUSTMENT) _
              As Long
 
 'sets the colourspace to a device context
 Private Declare Function SetColorSpace _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal hcolorspace As Long) _
              As Long
 
 'sets the position of the cursor on the screen
 Private Declare Function SetCursorPos _
         Lib "user32" _
-            (ByVal X As Long, _
-             ByVal Y As Long) _
+            (ByVal x As Long, _
+             ByVal y As Long) _
              As Long
 
 'sets the specified window to the top of the zorder queue
 Private Declare Function SetForegroundWindow _
         Lib "user32" _
-            (ByVal hWnd As Long) _
+            (ByVal hwnd As Long) _
              As Long
 
 'sets the bitmap of a menu
@@ -884,9 +884,9 @@ Private Declare Function SetMenuItemInfo _
 'sets the colour of the specified pixel
 Private Declare Function SetPixel _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
-             ByVal X As Long, _
-             ByVal Y As Long, _
+            (ByVal hDC As Long, _
+             ByVal x As Long, _
+             ByVal y As Long, _
              ByVal crColor As Long) _
              As Long
 
@@ -916,7 +916,7 @@ Private Declare Function SetRectRgn _
 'SetStretchBltMode or a brush misalignment occurs.
 Private Declare Function SetStretchBltMode _
         Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal nStretchMode As Integer) _
              As Integer
 
@@ -931,7 +931,7 @@ Private Declare Function SetSysColors _
 'sets the current text colour
 Private Declare Function SetTextColor _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal crColor As Long) _
              As Long
 
@@ -950,9 +950,9 @@ Private Declare Sub Sleep _
 'used to stretch or shrink a bitmap
 Private Declare Function StretchBlt _
        Lib "gdi32" _
-            (ByVal hdc As Long, _
-             ByVal X As Long, _
-             ByVal Y As Long, _
+            (ByVal hDC As Long, _
+             ByVal x As Long, _
+             ByVal y As Long, _
              ByVal nWidth As Long, _
              ByVal nHeight As Long, _
              ByVal hSrcDC As Long, _
@@ -976,7 +976,7 @@ Private Declare Function SystemParametersInfo _
 'copyies/resizes and image using the specified Transparent colour
 Private Declare Function TransparentBlt _
         Lib "msimg32.dll" _
-            (ByVal hdc As Long, _
+            (ByVal hDC As Long, _
              ByVal lngX As Long, _
              ByVal lngY As Long, _
              ByVal lngWidth As Long, _
@@ -1348,8 +1348,8 @@ Private Type BitmapStruc
 End Type
 
 Private Type PointAPI
-    X                       As Long
-    Y                       As Long
+    x                       As Long
+    y                       As Long
 End Type
 
 Private Type LogPen
@@ -1396,8 +1396,8 @@ End Type
 Private Type Point
     'you'll need this to reference a point on the
     'screen'
-    X                       As Integer
-    Y                       As Integer
+    x                       As Integer
+    y                       As Integer
 End Type
 
 'To hold the RGB value
@@ -2009,8 +2009,8 @@ Public Sub ApplyMatrix(ByRef sngMatrix() As Single, _
     End If
     
     'get the centre of the array
-    intCentreX = Math.ROUND(((intUpX - intLowX) / 2), 0)
-    intCentreY = Math.ROUND(((intUpY - intLowY) / 2), 0)
+    intCentreX = Math.Round(((intUpX - intLowX) / 2), 0)
+    intCentreY = Math.Round(((intUpY - intLowY) / 2), 0)
     
     'make sure that the matrix only contains values from -1 to 1
     For intMatrixX = intLowX To intUpX
@@ -2508,7 +2508,7 @@ Public Sub MaskBlend(ByVal lngDesthDc As Long, _
                       TempBmp.lngPointer)
 End Sub
 
-Public Sub FlashWindow(ByVal hWnd As Long, _
+Public Sub FlashWindow(ByVal hwnd As Long, _
                        Optional ByVal intTimes As Integer = 6, _
                        Optional ByVal lngIntervalTicks As Long = 400, _
                        Optional ByVal blnInvert As Boolean = True)
@@ -2523,7 +2523,7 @@ Public Sub FlashWindow(ByVal hWnd As Long, _
     
     'flash the window the specified number of times
     For intCounter = 1 To intTimes
-        lngResult = FlashWindowApi(hWnd, lngInvert)
+        lngResult = FlashWindowApi(hwnd, lngInvert)
         
         'wait for the specified tick interval
         Call Pause(lngIntervalTicks)
@@ -2694,7 +2694,7 @@ Public Sub RotateBitmap(ByVal lngDesthDc As Long, _
     End If
     
     'round off the angle
-    sngAngle = Math.ROUND(sngAngle, 1)
+    sngAngle = Math.Round(sngAngle, 1)
     
     'create a temperory bitmap to draw on
     If (sngAngle = 180) Then
@@ -2941,7 +2941,7 @@ Private Sub PictureTohDc(ByRef picPicture As IPictureDisp)
     
     With picPicture
         'get information about the picture
-        lngResult = GetObjectAPI(.Handle, Len(udtInfo), udtInfo)
+        lngResult = GetObjectAPI(.handle, Len(udtInfo), udtInfo)
         lngWidth = udtInfo.bmWidth
         lngHeight = udtInfo.bmHeight
         'lngWidth = picPicture.Width / Screen.TwipsPerPixelX
@@ -2961,7 +2961,7 @@ Private Sub PictureTohDc(ByRef picPicture As IPictureDisp)
             
             'apply the picture to the bitmap
             .lngDc = CreateCompatibleDC(GetDC(0))
-            .lngBitmap = picPicture.Handle
+            .lngBitmap = picPicture.handle
             lngResult = SelectObject(.lngDc, .lngBitmap)
         End With    'mudtBitmap
         
@@ -3134,7 +3134,7 @@ Public Sub DrawRoundRect(ByVal lngColour As Long, _
     'set lnghPen settings (similar to the
     'border properties on controls)
     PenStuff.lopnColor = lngColour
-    PenStuff.lopnWidth.X = Width
+    PenStuff.lopnWidth.x = Width
     PenStuff.lopnStyle = PS_SOLID
     
     'apply the settings to the device context
@@ -3230,9 +3230,9 @@ Public Sub TitleToTray(ByRef frm As Form)
     Loop
     
     'animate the title bar to the title tray
-    mlngRetVal = GetWindowRect(frm.hWnd, mudtRectFrom)
+    mlngRetVal = GetWindowRect(frm.hwnd, mudtRectFrom)
     mlngRetVal = GetWindowRect(mlnghTray, mudtRectTo)
-    mlngRetVal = DrawAnimatedRects(frm.hWnd, _
+    mlngRetVal = DrawAnimatedRects(frm.hwnd, _
                                   IDANI_OPEN Or IDANI_CAPTION, _
                                   mudtRectFrom, _
                                   mudtRectTo)
@@ -3265,9 +3265,9 @@ Public Sub TrayToTitle(ByRef frm As Form)
     Loop
     
     'draw the animation
-    mlngRetVal = GetWindowRect(frm.hWnd, mudtRectFrom)
+    mlngRetVal = GetWindowRect(frm.hwnd, mudtRectFrom)
     mlngRetVal = GetWindowRect(mlnghTray, mudtRectTo)
-    mlngRetVal = DrawAnimatedRects(frm.hWnd, _
+    mlngRetVal = DrawAnimatedRects(frm.hwnd, _
                                   IDANI_CLOSE Or IDANI_CAPTION, _
                                   mudtRectTo, _
                                   mudtRectFrom)
@@ -3283,7 +3283,7 @@ Public Sub DrawFrame(Optional ByVal intLeft As Integer, _
                      Optional ByVal intHeight As Integer, _
                      Optional ByVal enmFrameStyle As EnumFrameStyle = DFC_BUTTON, _
                      Optional ByVal enmFrameState As EnumFrameState = DFCS_BUTTON3STATE, _
-                     Optional ByVal hdc As Long, _
+                     Optional ByVal hDC As Long, _
                      Optional ByVal udtMeasurement As Scaling = InPixels)
     'This will draw a frame around the specified co-ordinates in the specified style on the specified device
     'context. If no size measurements are specified, then the size and positions are assumed to be the current
@@ -3323,12 +3323,12 @@ Public Sub DrawFrame(Optional ByVal intLeft As Integer, _
     End If  'what measurements are being used
     
     'what device was specified
-    If (hdc = 0) Then
-        hdc = mudtBitmap.lngDc
+    If (hDC = 0) Then
+        hDC = mudtBitmap.lngDc
     End If
     
     'draw the specified border
-    lngResult = DrawFrameControl(hdc, udtSize, enmFrameStyle, enmFrameState)
+    lngResult = DrawFrameControl(hDC, udtSize, enmFrameStyle, enmFrameState)
 End Sub
 
 Public Sub DrawLine(ByVal intX1 As Integer, _
@@ -3363,17 +3363,17 @@ Public Sub DrawLine(ByVal intX1 As Integer, _
     'Find out if a specific lngColour is to be set. If so set it.
     PenStuff.lopnColor = lngColour
     PenStuff.lopnStyle = PS_GEOMETRIC
-    PenStuff.lopnWidth.X = intWidth
+    PenStuff.lopnWidth.x = intWidth
     
     'apply the pen settings to the device context
     lnghPen = CreatePenIndirect(PenStuff)
     lngOldPtr = SelectObject(mudtBitmap.lngDc, lnghPen)
     
     'set the points
-    Points(1).X = intX1
-    Points(1).Y = intY1
-    Points(2).X = intX2
-    Points(2).Y = intY2
+    Points(1).x = intX1
+    Points(1).y = intY1
+    Points(2).x = intX2
+    Points(2).y = intY2
     
     'draw the line
     lngResult = Polyline(mudtBitmap.lngDc, Points(1), NUM_OF_POINTS)
@@ -3429,16 +3429,16 @@ Public Sub DrawPoly(ByRef intX() As Integer, _
         'convert to pixels
         With Screen
             For intCounter = 0 To intPointNum
-                Temp(intCounter).X = intX(intCounter + intMin) \ .TwipsPerPixelX
-                Temp(intCounter).Y = intY(intCounter + intMin) \ .TwipsPerPixelY
+                Temp(intCounter).x = intX(intCounter + intMin) \ .TwipsPerPixelX
+                Temp(intCounter).y = intY(intCounter + intMin) \ .TwipsPerPixelY
             Next intCounter
         End With
     
     Else
         'move the points into the PointAPI structure
         For intCounter = 0 To intPointNum
-            Temp(intCounter).X = intX(intCounter + intMin)
-            Temp(intCounter).Y = intY(intCounter + intMin)
+            Temp(intCounter).x = intX(intCounter + intMin)
+            Temp(intCounter).y = intY(intCounter + intMin)
         Next intCounter
     End If
     
@@ -3448,7 +3448,7 @@ Public Sub DrawPoly(ByRef intX() As Integer, _
     BrushStuff.lbStyle = BS_SOLID
     
     PenStuff.lopnColor = lngBorderColour
-    PenStuff.lopnWidth.X = intBorderWidth
+    PenStuff.lopnWidth.x = intBorderWidth
     PenStuff.lopnStyle = PS_SOLID
     
     'create the objects necessary to apply the colour and draw settings
@@ -3474,7 +3474,7 @@ Public Sub LockWindow(ByVal FormName As Form)
     
     Dim lngResult As Boolean    'holds the returned error value from an api call
     
-    lngResult = LockWindowUpdate(FormName.hWnd)
+    lngResult = LockWindowUpdate(FormName.hwnd)
 End Sub
 
 Public Sub UnLockWindow()
@@ -3548,8 +3548,8 @@ Private Sub CreateNewBitmap(ByRef lngDc As Long, _
     'make sure the bitmaps current pixel location is
     'pointing to 0x0
     lngResult = MoveToEx(lngDc, 0, 0, udtOldPos)
-    udtOldPos.X = 0
-    udtOldPos.Y = 0
+    udtOldPos.x = 0
+    udtOldPos.y = 0
     lngResult = SetBrushOrgEx(lngDc, 0, 0, udtOldPos)
 End Sub
 
@@ -3802,7 +3802,7 @@ Public Function IsFormActive(ByVal frmName As Form) _
     'This function returns wether or not the window
     'is active
     
-    If frmName.hWnd = GetActiveWindow Then
+    If frmName.hwnd = GetActiveWindow Then
         IsFormActive = True
     Else
         IsFormActive = False
@@ -4441,7 +4441,7 @@ Public Sub DrawBorder(Optional ByVal intLeft As Integer, _
                       Optional ByVal intHeight As Integer, _
                       Optional ByVal enmEdgeStyle As EnumEdges = BDR_ETCHED, _
                       Optional ByVal enmEdgeSides As EnumEdgeSides = BF_RECT, _
-                      Optional ByVal hdc As Long, _
+                      Optional ByVal hDC As Long, _
                       Optional ByVal udtMeasurement As Scaling = InPixels)
     'This will draw a border around the specified co-ordinates in the specified style on the specified device
     'context. If no size measurements are specified, then the size and positions are assumed to be the current
@@ -4481,12 +4481,12 @@ Public Sub DrawBorder(Optional ByVal intLeft As Integer, _
     End If  'what measurements are being used
     
     'what device was specified
-    If (hdc = 0) Then
-        hdc = mudtBitmap.lngDc
+    If (hDC = 0) Then
+        hDC = mudtBitmap.lngDc
     End If
     
     'draw the specified border
-    lngResult = DrawEdge(hdc, udtSize, enmEdgeStyle, enmEdgeStyle)
+    lngResult = DrawEdge(hDC, udtSize, enmEdgeStyle, enmEdgeStyle)
 End Sub
 
 Public Sub DrawEllipse(ByVal intCenterX As Integer, _
@@ -4573,8 +4573,8 @@ Public Sub DrawEllipse(ByVal intCenterX As Integer, _
         sngCircleY = Cos((sngCounter + sngTiltAngle) * PIdiv180) * intHeight
         
         'add the points
-        udtEllipse(ROUND(sngCounter / sngDegPerPoint)).X = sngMoveCenterX + sngCircleX
-        udtEllipse(ROUND(sngCounter / sngDegPerPoint)).Y = sngMoveCenterY + sngCircleY
+        udtEllipse(Round(sngCounter / sngDegPerPoint)).x = sngMoveCenterX + sngCircleX
+        udtEllipse(Round(sngCounter / sngDegPerPoint)).y = sngMoveCenterY + sngCircleY
     Next sngCounter
     
     'draw the ellipse as a polygon
@@ -4594,7 +4594,7 @@ Public Sub DrawEllipse(ByVal intCenterX As Integer, _
 
     'create the pen
     udtPenStuff.lopnColor = lngColour
-    udtPenStuff.lopnWidth.X = intThickness
+    udtPenStuff.lopnWidth.x = intThickness
     udtPenStuff.lopnStyle = PS_SOLID And PS_INSIDEFRAME
     lnghPen = CreatePenIndirect(udtPenStuff)
 
@@ -5257,12 +5257,12 @@ Public Function PixelColourCount(Optional ByVal lngStartCol As Long = vbBlack, _
     PixelColourCount = lngCount
 End Function
 
-Public Sub PutWindowInFore(ByVal hWnd As Long)
+Public Sub PutWindowInFore(ByVal hwnd As Long)
     'This will move the specified window to the top of the zorder
     
     Dim lngResult       As Long     'holds any returned value from an api call
     
-    lngResult = SetForegroundWindow(hWnd)
+    lngResult = SetForegroundWindow(hwnd)
 End Sub
 
 Private Function RectIntersects(ByRef udtRect1 As Rect, _
@@ -5488,7 +5488,7 @@ Public Sub GetWallpaper(Optional ByVal intScreenX As Integer = 0, _
     End With
 End Sub
 
-Public Sub GetWindowSnapShot(ByVal hWnd As Long)
+Public Sub GetWindowSnapShot(ByVal hwnd As Long)
     'This will capture the entire contents of a window and
     'resize the bitmap accordingly
     
@@ -5497,12 +5497,12 @@ Public Sub GetWindowSnapShot(ByVal hWnd As Long)
     Dim udtWindowArea   As Rect         'holds the size of the widnow
     
     'make sure that a widnow was passed
-    If hWnd = 0 Then
+    If hwnd = 0 Then
         Exit Sub
     End If
     
     'get the dc of the snapshot
-    lngTempDc = GetWindowDC(hWnd)
+    lngTempDc = GetWindowDC(hwnd)
     
     'were we successful in getting the snapshot
     If lngTempDc = 0 Then
@@ -5510,7 +5510,7 @@ Public Sub GetWindowSnapShot(ByVal hWnd As Long)
     End If
     
     'get the dimensions of the DC
-    lngResult = GetWindowRect(hWnd, udtWindowArea)
+    lngResult = GetWindowRect(hwnd, udtWindowArea)
     
     'did we get the size of the window?
     If lngResult = 0 Then
@@ -5529,7 +5529,7 @@ Public Sub GetWindowSnapShot(ByVal hWnd As Long)
     Call PaintFrom(lngTempDc)
     
     'release the windows DC
-    lngResult = ReleaseDC(hWnd, lngTempDc)
+    lngResult = ReleaseDC(hwnd, lngTempDc)
 End Sub
 
 Public Function RndNumber(ByVal dblMin As Double, _
@@ -5576,7 +5576,7 @@ Public Function RndNumber(ByVal dblMin As Double, _
     RndNumber = dblTemp
 End Function
 
-Public Sub SetBmpToMenu(ByVal hWnd As Long, _
+Public Sub SetBmpToMenu(ByVal hwnd As Long, _
                         ByVal lngTopPos As Long, _
                         ByVal lngSubPos1 As Long, _
                         Optional ByVal lngSubPos2 As Long = -1, _
@@ -5602,7 +5602,7 @@ Public Sub SetBmpToMenu(ByVal hWnd As Long, _
     Dim lngID           As Long     'the sub menu's ID
     
     'Get the handle of the form's menu
-    hMenu = GetMenu(hWnd)
+    hMenu = GetMenu(hwnd)
     
     'Get the handle of the form's submenu
     hSubMenu = GetSubMenu(hMenu, lngTopPos)
@@ -5922,8 +5922,8 @@ Public Sub SetStretchMode(Optional ByVal lngMode As EnumStretchModes = HALFTONE)
     
     're-apply the old brush origin
     lngResult = SetBrushOrgEx(mudtBitmap.lngDc, _
-                              udtOldOrigin.X, _
-                              udtOldOrigin.Y, _
+                              udtOldOrigin.x, _
+                              udtOldOrigin.y, _
                               udtOldOrigin)
 End Sub
 
@@ -5974,8 +5974,8 @@ Public Sub MousePosition(ByRef intX As Integer, _
     If lngResult <> 0 Then
         'set the parameters to the mouse position
         With udtMousePos
-            intX = .X
-            intY = .Y
+            intX = .x
+            intY = .y
         End With
     End If
 End Sub
@@ -6092,14 +6092,14 @@ Public Property Let Bits(Optional ByVal lngNumBytes As Long = -1, _
                               bytBits(LBound(bytBits)))
 End Property
 
-Public Property Get hdc() As Long
+Public Property Get hDC() As Long
     'a read-only property that returns a handle to
     'the bitmap in case the user needs to use the
     'bitmap with other functions or procedures not
     'included here or with other instances of this
     'object
     
-    hdc = mudtBitmap.lngDc
+    hDC = mudtBitmap.lngDc
 End Property
 
 Public Property Let Pixel(ByVal intX As Integer, _

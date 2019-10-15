@@ -29,7 +29,7 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '=================================================
-'AUTHOR :   Eric O'Sullivan
+'AUTHOR :   DiskJunky
 ' -----------------------------------------------
 'DATE :     4 June 2003
 ' -----------------------------------------------
@@ -50,24 +50,24 @@ Option Explicit
 '------------------------------------------------
 Public Event Click(ByVal Button As Integer, _
                    ByVal Shift As Integer, _
-                   ByVal X As Integer, _
-                   ByVal Y As Integer)
+                   ByVal x As Integer, _
+                   ByVal y As Integer)
 Public Event DblClick(ByVal Button As Integer, _
                       ByVal Shift As Integer, _
-                      ByVal X As Integer, _
-                      ByVal Y As Integer)
+                      ByVal x As Integer, _
+                      ByVal y As Integer)
 Public Event MouseDown(ByVal Button As Integer, _
                        ByVal Shift As Integer, _
-                       ByVal X As Integer, _
-                       ByVal Y As Integer)
+                       ByVal x As Integer, _
+                       ByVal y As Integer)
 Public Event MouseMove(ByVal Button As Integer, _
                        ByVal Shift As Integer, _
-                       ByVal X As Integer, _
-                       ByVal Y As Integer)
+                       ByVal x As Integer, _
+                       ByVal y As Integer)
 Public Event MouseUp(ByVal Button As Integer, _
                      ByVal Shift As Integer, _
-                     ByVal X As Integer, _
-                     ByVal Y As Integer)
+                     ByVal x As Integer, _
+                     ByVal y As Integer)
 Public Event TaskbarCreated()
 
 '------------------------------------------------
@@ -121,42 +121,42 @@ End Property
 '------------------------------------------------
 Private Sub msysIcon_Click(ByVal Button As Integer, _
                            ByVal Shift As Integer, _
-                           ByVal X As Integer, _
-                           ByVal Y As Integer)
+                           ByVal x As Integer, _
+                           ByVal y As Integer)
     'activate the click event
-    RaiseEvent Click(Button, Shift, X, Y)
+    RaiseEvent Click(Button, Shift, x, y)
 End Sub
 
 Private Sub msysIcon_DblClick(ByVal Button As Integer, _
                               ByVal Shift As Integer, _
-                              ByVal X As Integer, _
-                              ByVal Y As Integer)
+                              ByVal x As Integer, _
+                              ByVal y As Integer)
     'activate the double click event
-    RaiseEvent DblClick(Button, Shift, X, Y)
+    RaiseEvent DblClick(Button, Shift, x, y)
 End Sub
 
 Private Sub msysIcon_MouseDown(ByVal Button As Integer, _
                                ByVal Shift As Integer, _
-                               ByVal X As Integer, _
-                               ByVal Y As Integer)
+                               ByVal x As Integer, _
+                               ByVal y As Integer)
     'activate the mouse down event
-    RaiseEvent MouseDown(Button, Shift, X, Y)
+    RaiseEvent MouseDown(Button, Shift, x, y)
 End Sub
 
 Private Sub msysIcon_MouseMove(ByVal Button As Integer, _
                                ByVal Shift As Integer, _
-                               ByVal X As Integer, _
-                               ByVal Y As Integer)
+                               ByVal x As Integer, _
+                               ByVal y As Integer)
     'activate the mouse move event
-    RaiseEvent MouseMove(Button, Shift, X, Y)
+    RaiseEvent MouseMove(Button, Shift, x, y)
 End Sub
 
 Private Sub msysIcon_MouseUp(ByVal Button As Integer, _
                              ByVal Shift As Integer, _
-                             ByVal X As Integer, _
-                             ByVal Y As Integer)
+                             ByVal x As Integer, _
+                             ByVal y As Integer)
     'activate the mouse up event
-    RaiseEvent MouseUp(Button, Shift, X, Y)
+    RaiseEvent MouseUp(Button, Shift, x, y)
 End Sub
 
 Private Sub msysIcon_TaskbarCreated()

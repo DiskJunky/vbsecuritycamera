@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmCamOptions 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Security Camera Options"
@@ -249,11 +249,9 @@ Attribute VB_Exposed = False
 '-------------------------------------------------------------------------------
 '   Program Name:   SecurityCamera
 '  ---------------------------------------------------------------------------
-'   Author:         Eric O'Sullivan
+'   Author:         DiskJunky
 '  ---------------------------------------------------------------------------
 '   Date:           23 May 2006
-'  ---------------------------------------------------------------------------
-'   Company:        CompApp Technologies
 '  ---------------------------------------------------------------------------
 '   Email:          DiskJunky@hotmail.com
 '  ---------------------------------------------------------------------------

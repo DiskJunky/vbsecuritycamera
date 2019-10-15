@@ -15,7 +15,7 @@ Attribute VB_Description = "Allows a program to set an icon in the system tray a
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 '=================================================
-'AUTHOR :   Eric O'Sullivan
+'AUTHOR :   DiskJunky
 ' -----------------------------------------------
 'DATE :     2 August 2002
 ' -----------------------------------------------
@@ -56,8 +56,8 @@ Private Declare Function CreateWindowEx _
              ByVal lpClassName As String, _
              ByVal lpWindowName As String, _
              ByVal dwStyle As Long, _
-             ByVal X As Long, _
-             ByVal Y As Long, _
+             ByVal x As Long, _
+             ByVal y As Long, _
              ByVal nWidth As Long, _
              ByVal nHeight As Long, _
              ByVal hWndParent As Long, _
@@ -143,8 +143,8 @@ End Type
 
 'used to get the cursors position on the screen
 Private Type PointAPI
-    X                   As Long
-    Y                   As Long
+    x                   As Long
+    y                   As Long
 End Type
 
 'holds information about a window class
@@ -205,24 +205,24 @@ Private mstrClass               As String           'holds a string name of the 
 '------------------------------------------------
 Public Event Click(ByVal Button As Integer, _
                    ByVal Shift As Integer, _
-                   ByVal X As Integer, _
-                   ByVal Y As Integer)
+                   ByVal x As Integer, _
+                   ByVal y As Integer)
 Public Event DblClick(ByVal Button As Integer, _
                       ByVal Shift As Integer, _
-                      ByVal X As Integer, _
-                      ByVal Y As Integer)
+                      ByVal x As Integer, _
+                      ByVal y As Integer)
 Public Event MouseDown(ByVal Button As Integer, _
                        ByVal Shift As Integer, _
-                       ByVal X As Integer, _
-                       ByVal Y As Integer)
+                       ByVal x As Integer, _
+                       ByVal y As Integer)
 Public Event MouseMove(ByVal Button As Integer, _
                        ByVal Shift As Integer, _
-                       ByVal X As Integer, _
-                       ByVal Y As Integer)
+                       ByVal x As Integer, _
+                       ByVal y As Integer)
 Public Event MouseUp(ByVal Button As Integer, _
                      ByVal Shift As Integer, _
-                     ByVal X As Integer, _
-                     ByVal Y As Integer)
+                     ByVal x As Integer, _
+                     ByVal y As Integer)
 Public Event TaskbarCreated()
 
 '------------------------------------------------
@@ -400,31 +400,31 @@ Public Sub ProcessMessage(wParam As Long, lParam As Long)
     
     Select Case lParam
         Case WM_MOUSEMOVE
-            RaiseEvent MouseMove(0, 0, udtPos.X, udtPos.Y)
+            RaiseEvent MouseMove(0, 0, udtPos.x, udtPos.y)
         
         Case WM_LBUTTONDOWN
-            RaiseEvent MouseDown(vbLeftButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent MouseDown(vbLeftButton, 0, udtPos.x, udtPos.y)
         Case WM_LBUTTONUP
-            RaiseEvent MouseUp(vbLeftButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent MouseUp(vbLeftButton, 0, udtPos.x, udtPos.y)
         
         Case WM_LBUTTONDBLCLK
-            RaiseEvent DblClick(vbLeftButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent DblClick(vbLeftButton, 0, udtPos.x, udtPos.y)
         
         Case WM_MBUTTONDBLCLK
-            RaiseEvent DblClick(vbMiddleButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent DblClick(vbMiddleButton, 0, udtPos.x, udtPos.y)
         
         Case WM_RBUTTONDBLCLK
-            RaiseEvent DblClick(vbRightButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent DblClick(vbRightButton, 0, udtPos.x, udtPos.y)
         
         Case WM_RBUTTONDOWN
-            RaiseEvent MouseDown(vbRightButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent MouseDown(vbRightButton, 0, udtPos.x, udtPos.y)
         Case WM_RBUTTONUP
-            RaiseEvent MouseUp(vbRightButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent MouseUp(vbRightButton, 0, udtPos.x, udtPos.y)
         
         Case WM_MBUTTONDOWN
-            RaiseEvent MouseDown(vbMiddleButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent MouseDown(vbMiddleButton, 0, udtPos.x, udtPos.y)
         Case WM_MBUTTONUP
-            RaiseEvent MouseUp(vbMiddleButton, 0, udtPos.X, udtPos.Y)
+            RaiseEvent MouseUp(vbMiddleButton, 0, udtPos.x, udtPos.y)
     End Select
 End Sub
 
@@ -438,8 +438,8 @@ End Sub
 
 Private Sub mpicHook_MouseMove(Button As Integer, _
                                Shift As Integer, _
-                               X As Single, _
-                               Y As Single)
+                               x As Single, _
+                               y As Single)
     'used to trigger the appropiate events rather than
     'letting the programmer squash all the events into
     'a picture boxes MouseMove event
@@ -453,7 +453,7 @@ Private Sub mpicHook_MouseMove(Button As Integer, _
     Dim lngResult   As Long     'holds any returned error value from the api call
 
     'find out what event was triggered
-    lngMousePos = X / Screen.TwipsPerPixelX
+    lngMousePos = x / Screen.TwipsPerPixelX
 
     'get the current position of the mouse in screen
     'co-ordinates
@@ -463,81 +463,81 @@ Private Sub mpicHook_MouseMove(Button As Integer, _
         Case WM_LBUTTONDOWN
             RaiseEvent MouseDown(vbLeftButton, _
                                  Shift, _
-                                 CInt(udtPos.X), _
-                                 CInt(udtPos.Y))
+                                 CInt(udtPos.x), _
+                                 CInt(udtPos.y))
 
         Case WM_RBUTTONDOWN
             RaiseEvent MouseDown(vbRightButton, _
                                  Shift, _
-                                 CInt(udtPos.X), _
-                                 CInt(udtPos.Y))
+                                 CInt(udtPos.x), _
+                                 CInt(udtPos.y))
         
         Case WM_MBUTTONDOWN
             RaiseEvent MouseDown(vbMiddleButton, _
                                  Shift, _
-                                 CInt(udtPos.X), _
-                                 CInt(udtPos.Y))
+                                 CInt(udtPos.x), _
+                                 CInt(udtPos.y))
         
         Case WM_LBUTTONUP
             RaiseEvent MouseUp(vbLeftButton, _
                                Shift, _
-                               CInt(udtPos.X), _
-                               CInt(udtPos.Y))
+                               CInt(udtPos.x), _
+                               CInt(udtPos.y))
             DoEvents
             RaiseEvent Click(vbLeftButton, _
                              Shift, _
-                             CInt(udtPos.X), _
-                             CInt(udtPos.Y))
+                             CInt(udtPos.x), _
+                             CInt(udtPos.y))
 
         Case WM_RBUTTONUP
             RaiseEvent MouseUp(vbRightButton, _
                                Shift, _
-                               CInt(udtPos.X), _
-                               CInt(udtPos.Y))
+                               CInt(udtPos.x), _
+                               CInt(udtPos.y))
             DoEvents
             RaiseEvent Click(vbRightButton, _
                              Shift, _
-                             CInt(udtPos.X), _
-                             CInt(udtPos.Y))
+                             CInt(udtPos.x), _
+                             CInt(udtPos.y))
         
         Case WM_MBUTTONUP
             RaiseEvent MouseUp(vbMiddleButton, _
                                Shift, _
-                               CInt(udtPos.X), _
-                               CInt(udtPos.Y))
+                               CInt(udtPos.x), _
+                               CInt(udtPos.y))
             
             DoEvents
             RaiseEvent Click(vbMiddleButton, _
                              Shift, _
-                             CInt(udtPos.X), _
-                             CInt(udtPos.Y))
+                             CInt(udtPos.x), _
+                             CInt(udtPos.y))
         
         Case WM_MOUSEMOVE
             RaiseEvent MouseMove(Button, _
                                  Shift, _
-                                 CInt(udtPos.X), _
-                                 CInt(udtPos.Y))
+                                 CInt(udtPos.x), _
+                                 CInt(udtPos.y))
 
         Case WM_LBUTTONDBLCLK
             'double click
             RaiseEvent DblClick(vbLeftButton, _
                                 Shift, _
-                                CInt(udtPos.X), _
-                                CInt(udtPos.Y))
+                                CInt(udtPos.x), _
+                                CInt(udtPos.y))
         
         Case WM_RBUTTONDBLCLK
             'double click
             RaiseEvent DblClick(vbRightButton, _
                                 Shift, _
-                                CInt(udtPos.X), _
-                                CInt(udtPos.Y))
+                                CInt(udtPos.x), _
+                                CInt(udtPos.y))
         
         Case WM_MBUTTONDBLCLK
             'double click
             RaiseEvent DblClick(vbMiddleButton, _
                                 Shift, _
-                                CInt(udtPos.X), _
-                                CInt(udtPos.Y))
+                                CInt(udtPos.x), _
+                                CInt(udtPos.y))
 
         Case Else
             Debug.Print lngMousePos

@@ -4,7 +4,7 @@ Attribute VB_Name = "modWebCam"
 '-------------------------------------------------------------------------------
 '   Program Name:   WebCam Module - General Use
 '  ---------------------------------------------------------------------------
-'   Author:         Eric O'Sullivan
+'   Author:         DiskJunky
 '  ---------------------------------------------------------------------------
 '   Date:           23 May 2006
 '  ---------------------------------------------------------------------------
@@ -44,8 +44,8 @@ Private Declare Function capCreateCaptureWindow _
         Alias "capCreateCaptureWindowA" _
             (ByVal lpszWindowName As String, _
              ByVal dwStyle As Long, _
-             ByVal X As Long, _
-             ByVal Y As Long, _
+             ByVal x As Long, _
+             ByVal y As Long, _
              ByVal nWidth As Long, _
              ByVal nHeight As Long, _
              ByVal hWndParent As Long, _

@@ -1,6 +1,6 @@
 Attribute VB_Name = "modSysTrayIcon"
 '=================================================
-'AUTHOR :   Eric O'Sullivan
+'AUTHOR :   DiskJunky
 ' -----------------------------------------------
 'DATE :     4 June 2003
 ' -----------------------------------------------
@@ -31,7 +31,7 @@ Private Declare Function CopyMemory _
         Alias "RtlMoveMemory" _
             (ByVal Dest As Long, _
              ByVal Src As Long, _
-             ByVal Length As Long) _
+             ByVal length As Long) _
              As Long
 
 'calls the default window procedure to provide default
